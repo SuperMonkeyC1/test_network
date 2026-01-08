@@ -32,15 +32,13 @@ jobs:
 
       # ---------- 构建 exe ----------
       - name: Build ping_monitor.exe
-        run: pyinstaller -F -n ping_monitor ping_monitor.py
+        run: pyinstaller -F -n ping_monitor ping_monitor.py --icon=ico/ping_monitor.ico
 
       - name: Build tcping_monitor.exe
-        run: pyinstaller -F -n tcping_monitor tcping_monitor.py
+        run: pyinstaller -F -n tcping_monitor tcping_monitor.py --icon=ico/tcping_monitor.ico
 
       - name: Build net_probe.exe
-        run: pyinstaller -F -n net_probe net_probe.py
-
-
+        run: pyinstaller -F -n net_probe net_probe.py --icon=ico/net_probe.ico
 
       # ---------- 组装发布目录 ----------
       - name: Prepare release package
