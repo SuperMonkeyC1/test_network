@@ -32,27 +32,36 @@ jobs:
 
       # ---------- 构建 exe ----------
       - name: Build ping_monitor.exe
-        run: pyinstaller --onefile --name ping_monitor ping_monitor.py
+        run: pyinstaller -F -n ping_monitor ping_monitor.py
 
       - name: Build tcping_monitor.exe
-        run: pyinstaller --onefile --name tcping_monitor tcping_monitor.py
+        run: pyinstaller -F -n tcping_monitor tcping_monitor.py
+
+      - name: Build net_probe.exe
+        run: pyinstaller -F -n net_probe net_probe.py
+
+
 
       # ---------- 组装发布目录 ----------
       - name: Prepare release package
         run: |
-          mkdir test_network
-          copy dist\ping_monitor.exe test_network\
-          copy dist\tcping_monitor.exe test_network\
-          copy config.yaml test_network\
+          mkdir release
+          copy dist\ping_monitor.exe release\
+          copy dist\tcping_monitor.exe release\
+          copy dist\net_probe.exe release\
+          copy config.yaml release\
 
       # ---------- 打 zip ----------
       - name: Create zip package
-        run: Compress-Archive -Path test_network\* -DestinationPath test_network_${{ github.ref_name }}.zip
+        run: |
+          Compress-Archive `
+            -Path release\* `
+            -DestinationPath network_tools_${{ github.ref_name }}.zip
 
       # ---------- 发布 Release ----------
       - name: Upload Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: test_network ${{ github.ref_name }}
-          files: test_network_${{ github.ref_name }}.zip
+          name: network_tools ${{ github.ref_name }}
+          files: network_tools_${{ github.ref_name }}.zip
