@@ -139,7 +139,7 @@ ping_scan:
 # TCP 探测配置
 # ========================
 tcp_scan:
-  enable: False                # 是否启用 TCP 探测 Ture or False
+  enable: Ture                # 是否启用 TCP 探测 Ture or False
 
   # list | range | full
   # list  : 指定端口列表（默认，最安全）
@@ -148,7 +148,33 @@ tcp_scan:
   mode: list
 
   # --- 模式 1：端口列表（默认，最安全）
-  ports: [ 80, 554, 8000 ]       # 常见服务 / 摄像头端口
+  ports: [
+    20,    # FTP 数据传输
+    21,    # FTP 控制
+    22,    # SSH
+    23,    # Telnet
+    25,    # SMTP
+    53,    # DNS
+    80,    # HTTP
+    110,   # POP3
+    123,   # NTP
+    143,   # IMAP
+    443,   # HTTPS
+    465,   # SMTPS
+    554,   # RTSP (实时流协议，常用于视频监控)
+    587,   # SMTP 提交
+    993,   # IMAPS
+    995,   # POP3S
+    1433,  # Microsoft SQL Server
+    1521,  # Oracle Database
+    3306,  # MySQL
+    3389,  # RDP (远程桌面)
+    5060,  # SIP (VoIP)
+    5432,  # PostgreSQL
+    8000,  # 常见HTTP代理或Web服务
+    8080,  # HTTP代理/Tomcat
+    8443   # HTTPS代理
+  ]
 
   # --- 模式 2：端口范围（mode=range）
   port_range:
